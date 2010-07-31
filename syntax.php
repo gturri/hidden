@@ -18,13 +18,7 @@ require_once(DOKU_PLUGIN.'syntax.php');
 class syntax_plugin_hidden extends DokuWiki_Syntax_Plugin {
 
   function getInfo() {
-    return array(
-      'author' => 'Guillaume Turri',
-      'email' => 'guillaume.turri@gmail.com',
-      'date' => '2010-01-13',
-      'name' => 'hidden Plugin',
-      'desc' => 'Enable to hide/show details',
-      'url' =>  'http://www.dokuwiki.org/plugin:hidden');
+    return confToHash(dirname(__FILE__).'/plugin.info.txt');
   } // getInfo()
 
   function getType(){ return 'container'; }
