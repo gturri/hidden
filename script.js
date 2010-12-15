@@ -7,10 +7,10 @@
  */
 
 function plugin_hidden_hideThis(){
-	plugin_hidden_hide(this);
+	plugin_hidden_flip(this);
 }
 
-function plugin_hidden_hide(elem){
+function plugin_hidden_flip(elem){
   var parent = elem.parentNode;
   var onHiddenText = parent.childNodes[0].innerHTML;
   var onVisibleText = parent.childNodes[1].innerHTML;
@@ -26,6 +26,17 @@ function plugin_hidden_hide(elem){
     body.style.display = "";
     head.innerHTML = onVisibleText;
   }
+}
+
+function plugin_hidden_hide(elem){
+	var parent = elem.parentNode;
+	var onHiddenText = parent.childNodes[0].innerHTML;
+	var onVisibleText = parent.childNodes[1].innerHTML;
+	var head = parent.childNodes[3];
+	var body = parent.childNodes[4];
+
+	body.style.display = "none";
+	head.innerHTML = onHiddenText;
 }
 
 /**
