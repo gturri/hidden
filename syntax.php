@@ -24,7 +24,7 @@ class syntax_plugin_hidden extends DokuWiki_Syntax_Plugin {
   }
   function getSort(){
     //make sure it's greater than hiddenSwitch plugin's one in order to avoid a confusion between "<hidden.*" and "<hiddenSwitch.*"
-    return 999;
+    return 189;
      }
 
   // override default accepts() method to allow nesting
