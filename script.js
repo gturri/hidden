@@ -38,6 +38,43 @@ function installPluginHiddenJS(){
   jQuery(".hiddenSinceBeginning").each(function(){
     plugin_hidden_flip(this, true);
   });
+
+  jQuery(".hiddenSwitch").each(function(){
+      jQuery(this).click(function(){plugin_hidden_flipAll()});
+  });
+}
+
+/**
+ * Check if at least one element is currently hidden
+ */
+function plugin_hidden_atLeastOneHidden(){
+    var result = false;
+    jQuery(".hiddenActive").each(function(){
+        if ( plugin_hidden_isHidden(this) ){
+            result = true;
+        }
+    });
+
+    return result;
+}
+
+/**
+ * Check if a given element is hidden
+ */
+function plugin_hidden_isHidden(elem){
+    return elem.parentNode.childNodes[4].style.display === "none";
+}
+
+/**
+ * Swap the state of every element
+ */
+function plugin_hidden_flipAll(){
+    var weShallDisplay = plugin_hidden_atLeastOneHidden();
+    jQuery(".hiddenActive").each(function(){
+        if ( weShallDisplay == plugin_hidden_isHidden(this) ){
+            plugin_hidden_flip(this, false);
+        }
+    });
 }
 
 jQuery(function(){installPluginHiddenJS();});
