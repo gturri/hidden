@@ -1,6 +1,6 @@
 /**
  * script.js for Plugin hidden
- * 
+ *
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
  * @author     Guillaume Turri <guillaume.turri@gmail.com>
  *
