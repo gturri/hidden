@@ -34,3 +34,7 @@
 div.hiddenGlobal div.hiddenHead p{
   margin:0;
 }
+
+.hiddenNoPrint {
+    display:none;
+}
