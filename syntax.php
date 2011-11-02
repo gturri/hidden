@@ -44,7 +44,8 @@ class syntax_plugin_hidden extends DokuWiki_Syntax_Plugin {
   function handle($match, $state, $pos, &$handler) {
     switch ($state) {
       case DOKU_LEXER_ENTER :
-        $return = array('active' => 'true', 'element'=>Array(), 'onHidden'=>'', 'onVisible'=>'', 'initialState'=>'hidden', 'state'=>$state);
+          $return = array('active' => 'true', 'element'=>Array(), 'onHidden'=>'', 'onVisible'=>'',
+              'initialState'=>'hidden', 'state'=>$state, 'printHead' => true);
            $match = substr($match, 7, -1); //7 = strlen("<hidden")
 
         //Looking for the initial state
@@ -57,6 +58,12 @@ class syntax_plugin_hidden extends DokuWiki_Syntax_Plugin {
             || $initialeState == 'expand' ) {
             $return['initialState'] = 'visible';
           }
+        }
+
+        //Looking for the -noPrint option
+        if ( preg_match('/-noprint/i', $match, $found) ){
+            $return['printHead'] = false;
+            $match = str_replace($found[0], '', $match);
         }
 
            //Looking if this block is active
@@ -127,6 +134,7 @@ class syntax_plugin_hidden extends DokuWiki_Syntax_Plugin {
            $tab = array();
            $onVisible = p_render('xhtml', p_get_instructions($data['onVisible']), $tab);
            $onHidden = p_render('xhtml', p_get_instructions($data['onHidden']), $tab);
+
           // "\n" are inside tags to avoid whitespaces in the DOM with FF
           $renderer->doc .= '<div class="hiddenGlobal">';
           $renderer->doc .= '<div class="hiddenOnHidden">'.$onHidden."</div\n>"; //text displayed when hidden
@@ -138,7 +146,8 @@ class syntax_plugin_hidden extends DokuWiki_Syntax_Plugin {
           }
           $renderer->doc .= "</div\n>";
 
-          $renderer->doc .= '<div class="hiddenHead';
+          $renderer->doc .= '<div class="hiddenHead ';
+          $renderer->doc .= $data['printHead'] ? '' : 'hiddenNoPrint';
           $renderer->doc .= $data['active'] ? ' hiddenActive' : '';
           $renderer->doc .= ($data['initialState'] == 'hidden') ? ' hiddenSinceBeginning' : '';
           $renderer->doc .= '">';
