@@ -45,7 +45,7 @@ class syntax_plugin_hidden extends DokuWiki_Syntax_Plugin {
     switch ($state) {
       case DOKU_LEXER_ENTER :
           $return = array('active' => 'true', 'element'=>Array(), 'onHidden'=>'', 'onVisible'=>'',
-              'initialState'=>'hidden', 'state'=>$state, 'printHead' => true);
+              'initialState'=>'hidden', 'state'=>$state, 'printHead' => true, 'bytepos_start' => $pos, 'edit' => false);
            $match = substr($match, 7, -1); //7 = strlen("<hidden")
 
         //Looking for the initial state
@@ -63,6 +63,12 @@ class syntax_plugin_hidden extends DokuWiki_Syntax_Plugin {
         //Looking for the -noPrint option
         if ( preg_match('/-noprint/i', $match, $found) ){
             $return['printHead'] = false;
+            $match = str_replace($found[0], '', $match);
+        }
+
+        //Looking for the -editable option
+        if ( preg_match('/-edit(able)?/i', $match, $found) ){
+            $return['edit'] = true;
             $match = str_replace($found[0], '', $match);
         }
 
@@ -123,7 +129,7 @@ class syntax_plugin_hidden extends DokuWiki_Syntax_Plugin {
         return array('state'=>$state, 'text'=>$match);
 
       default:
-        return array('state'=>$state);
+        return array('state'=>$state, 'bytepos_end' => $pos + strlen($match));
       }
   } // handle()
 
@@ -131,12 +137,14 @@ class syntax_plugin_hidden extends DokuWiki_Syntax_Plugin {
     if($mode == 'xhtml'){
       switch ($data['state']) {
         case DOKU_LEXER_ENTER :
+           $this->editableBlocks[] = $data['edit'];
+           $classEdit = ($data['edit'] ? $renderer->startSectionEdit($data['bytepos_start'], 'section', $this->getLang('edit')) : '');
            $tab = array();
            $onVisible = p_render('xhtml', p_get_instructions($data['onVisible']), $tab);
            $onHidden = p_render('xhtml', p_get_instructions($data['onHidden']), $tab);
 
           // "\n" are inside tags to avoid whitespaces in the DOM with FF
-          $renderer->doc .= '<div class="hiddenGlobal">';
+          $renderer->doc .= '<div class="hiddenGlobal '.$classEdit.'">';
           $renderer->doc .= '<div class="hiddenOnHidden">'.$onHidden."</div\n>"; //text displayed when hidden
           $renderer->doc .= '<div class="hiddenOnVisible">'.$onVisible."</div\n>"; //text displayed when expanded
 
@@ -173,6 +181,9 @@ class syntax_plugin_hidden extends DokuWiki_Syntax_Plugin {
 
         case DOKU_LEXER_EXIT :
           $renderer->doc .= "</div\n></div\n>"; //close hiddenBody and hiddenGlobal
+          if ( array_pop($this->editableBlocks) ){
+              $renderer->finishSectionEdit($data['bytepos_end']);
+          }
           break;
       }
       return true;
@@ -180,5 +191,7 @@ class syntax_plugin_hidden extends DokuWiki_Syntax_Plugin {
 
     return false;
   } // render()
+
+  var $editableBlocks = array();
 
 } // class syntax_plugin_nspages
