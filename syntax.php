@@ -45,7 +45,8 @@ class syntax_plugin_hidden extends DokuWiki_Syntax_Plugin {
     switch ($state) {
       case DOKU_LEXER_ENTER :
           $return = array('active' => 'true', 'element'=>Array(), 'onHidden'=>'', 'onVisible'=>'',
-              'initialState'=>'hidden', 'state'=>$state, 'printHead' => true, 'bytepos_start' => $pos, 'edit' => false);
+              'initialState'=>'hidden', 'state'=>$state, 'printHead' => true, 'bytepos_start' => $pos,
+              'edit' => false, 'editText' => $this->getLang('edit'));
            $match = substr($match, 7, -1); //7 = strlen("<hidden")
 
         //Looking for the initial state
@@ -67,7 +68,10 @@ class syntax_plugin_hidden extends DokuWiki_Syntax_Plugin {
         }
 
         //Looking for the -editable option
-        if ( preg_match('/-edit(able)?/i', $match, $found) ){
+        if ( preg_match('/-edit(able)?( *= *"([^"]*)")?/i', $match, $found) ){
+            if ( count($found) > 1 ){
+                $return['editText'] = end($found);
+            }
             $return['edit'] = true;
             $match = str_replace($found[0], '', $match);
         }
@@ -138,7 +142,7 @@ class syntax_plugin_hidden extends DokuWiki_Syntax_Plugin {
       switch ($data['state']) {
         case DOKU_LEXER_ENTER :
            $this->editableBlocks[] = $data['edit'];
-           $classEdit = ($data['edit'] ? $renderer->startSectionEdit($data['bytepos_start'], 'section', $this->getLang('edit')) : '');
+           $classEdit = ($data['edit'] ? $renderer->startSectionEdit($data['bytepos_start'], 'section', $data['editText']) : '');
            $tab = array();
            $onVisible = p_render('xhtml', p_get_instructions($data['onVisible']), $tab);
            $onHidden = p_render('xhtml', p_get_instructions($data['onHidden']), $tab);
