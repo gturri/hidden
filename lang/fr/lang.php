@@ -10,3 +10,4 @@ $lang['encoding']              = 'utf-8';
 $lang['direction']             = 'ltr';
 $lang['onHidden']              = 'Cliquez pour afficher ⇲';
 $lang['onVisible']             = 'Cliquez pour masquer ⇱';
+$lang['edit']                  = 'Éditer la section masquée';
