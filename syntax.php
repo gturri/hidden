@@ -56,7 +56,7 @@ class syntax_plugin_hidden extends DokuWiki_Syntax_Plugin {
           $initialState = strtolower(trim($initialState[1]));
           if ( $initialState == 'visible'
             || $initialState == 'true'
-            || $initialeState == 'expand' ) {
+            || $initialState == 'expand' ) {
             $return['initialState'] = 'visible';
           }
         }
