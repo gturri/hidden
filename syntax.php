@@ -18,7 +18,7 @@ require_once(DOKU_PLUGIN.'syntax.php');
 class syntax_plugin_hidden extends DokuWiki_Syntax_Plugin {
 
   function getType(){ return 'container'; }
-  function getPType(){ return 'block'; }
+  function getPType(){ return 'stack'; }
   function getAllowedTypes() { 
     return array('container', 'baseonly', 'substition','protected','disabled','formatting','paragraphs');
   }
