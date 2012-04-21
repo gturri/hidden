@@ -149,14 +149,14 @@ class syntax_plugin_hidden extends DokuWiki_Syntax_Plugin {
 
           // "\n" are inside tags to avoid whitespaces in the DOM with FF
           $renderer->doc .= '<div class="hiddenGlobal '.$classEdit.'">';
-          $renderer->doc .= '<div class="hiddenOnHidden">'.$onHidden."</div\n>"; //text displayed when hidden
-          $renderer->doc .= '<div class="hiddenOnVisible">'.$onVisible."</div\n>"; //text displayed when expanded
+          $renderer->doc .= '<div class="hiddenOnHidden">'.$onHidden."</div>"; //text displayed when hidden
+          $renderer->doc .= '<div class="hiddenOnVisible">'.$onVisible."</div>"; //text displayed when expanded
 
           $renderer->doc .= '<div class="hiddenElements">';
           foreach($data['element'] as $element){
             $renderer->doc .= ' '.$element;
           }
-          $renderer->doc .= "</div\n>";
+          $renderer->doc .= "</div>";
 
           $renderer->doc .= '<div class="hiddenHead ';
           $renderer->doc .= $data['printHead'] ? '' : 'hiddenNoPrint';
@@ -164,7 +164,7 @@ class syntax_plugin_hidden extends DokuWiki_Syntax_Plugin {
           $renderer->doc .= ($data['initialState'] == 'hidden') ? ' hiddenSinceBeginning' : '';
           $renderer->doc .= '">';
           $renderer->doc .= $onVisible;
-          $renderer->doc .= "</div\n>";
+          $renderer->doc .= "</div>";
 
           $renderer->doc .= '<div class="hiddenBody">';
           break;
@@ -184,7 +184,7 @@ class syntax_plugin_hidden extends DokuWiki_Syntax_Plugin {
           break;
 
         case DOKU_LEXER_EXIT :
-          $renderer->doc .= "</div\n></div\n>"; //close hiddenBody and hiddenGlobal
+          $renderer->doc .= "</div\n></div>"; //close hiddenBody and hiddenGlobal
           if ( array_pop($this->editableBlocks) ){
               $renderer->finishSectionEdit($data['bytepos_end']);
           }

@@ -12,11 +12,11 @@
  * @param forceHide FALSE to flip, TRUE to hide unconditionnaly
  */
 function plugin_hidden_flip(elem, forceHide){
-  var parent = elem.parentNode;
-  var onHiddenText = parent.childNodes[0].innerHTML;
-  var onVisibleText = parent.childNodes[1].innerHTML;
-  var head = parent.childNodes[3];
-  var body = parent.childNodes[4];
+  var parent = jQuery(elem.parentNode);
+  var onHiddenText = parent.children('div.hiddenOnHidden')[0].innerHTML;
+  var onVisibleText = parent.children('div.hiddenOnVisible')[0].innerHTML;
+  var head = parent.children('div.hiddenHead')[0];
+  var body = parent.children('div.hiddenBody')[0];
 
   if (body.style.display !== "none" || forceHide){
     jQuery(body).hide();
@@ -62,7 +62,7 @@ function plugin_hidden_atLeastOneHidden(){
  * Check if a given element is hidden
  */
 function plugin_hidden_isHidden(elem){
-    return elem.parentNode.childNodes[4].style.display === "none";
+    return jQuery(elem.parentNode).children('div.hiddenBody').style.display === "none";
 }
 
 /**
