@@ -184,7 +184,7 @@ class syntax_plugin_hidden extends DokuWiki_Syntax_Plugin {
           break;
 
         case DOKU_LEXER_EXIT :
-          $renderer->doc .= "</div\n></div>"; //close hiddenBody and hiddenGlobal
+          $renderer->doc .= "</div></div>"; //close hiddenBody and hiddenGlobal
           if ( array_pop($this->editableBlocks) ){
               $renderer->finishSectionEdit($data['bytepos_end']);
           }
