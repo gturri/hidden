@@ -94,19 +94,9 @@ class syntax_plugin_hidden extends DokuWiki_Syntax_Plugin {
              $return['element'] = explode(' ', $element[1]);
            }
 
-           //Looking for the text to display when the block is hidden
-        preg_match("/onHidden *= *\"([^\"]*)\" ?/i", $match, $text);
-        if( count($text) != 0){
-          $match = str_replace($text[0], '', $match);
-          $return['onHidden'] = $text[1];
-        }
-
-           //Looking for the text to display when the block is visible
-        preg_match("/onVisible *= *\"([^\"]*)\" ?/i", $match, $text);
-        if( count($text) != 0){
-          $match = str_replace($text[0], '', $match);
-          $return['onVisible'] = $text[1];
-        }
+        //Looking for the texts to display
+        $this->grepOption($return, 'onHidden', $match);
+        $this->grepOption($return, 'onVisible', $match);
 
         //If there were neither onHidden nor onVisible, take what's left
         if( $return['onHidden']=='' && $return['onVisible']=='' ){
@@ -123,6 +113,7 @@ class syntax_plugin_hidden extends DokuWiki_Syntax_Plugin {
           $return['onVisible'] = ($return['onVisible']!='') ? $return['onVisible'] : $this->getlang('onVisible');
         }
 
+
         //for security
         $return['onHidden'] = htmlspecialchars($return['onHidden']);
         $return['onVisible'] = htmlspecialchars($return['onVisible']);
@@ -136,6 +127,14 @@ class syntax_plugin_hidden extends DokuWiki_Syntax_Plugin {
         return array('state'=>$state, 'bytepos_end' => $pos + strlen($match));
       }
   } // handle()
+
+  private function grepOption(&$options, $tag, &$match){
+    preg_match("/$tag *= *\"([^\"]*)\" ?/i", $match, $text);
+    if ( count($text) != 0 ){
+      $match = str_replace($text[0], '', $match);
+      $options[$tag] = $text[1];
+    }
+  }
 
   function render($mode, &$renderer, $data) {
     if($mode == 'xhtml'){
