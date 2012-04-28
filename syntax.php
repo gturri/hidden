@@ -46,7 +46,7 @@ class syntax_plugin_hidden extends DokuWiki_Syntax_Plugin {
       case DOKU_LEXER_ENTER :
           $return = array('active' => 'true', 'element'=>Array(), 'onHidden'=>'', 'onVisible'=>'',
               'initialState'=>'hidden', 'state'=>$state, 'printHead' => true, 'bytepos_start' => $pos,
-              'edit' => false, 'editText' => $this->getLang('edit'), 'exportText' => '');
+              'edit' => false, 'editText' => $this->getLang('edit'), 'onExportPdf' => '');
            $match = substr($match, 7, -1); //7 = strlen("<hidden")
 
         //Looking for the initial state
@@ -95,9 +95,9 @@ class syntax_plugin_hidden extends DokuWiki_Syntax_Plugin {
            }
 
         //Looking for the texts to display
-        $this->grepOption($return, 'onHidden', $match);
-        $this->grepOption($return, 'onVisible', $match);
-        $this->grepOption($return, 'onExport', $match);
+        $this->_grepOption($return, 'onHidden', $match);
+        $this->_grepOption($return, 'onVisible', $match);
+        $this->_grepOption($return, 'onExportPdf', $match);
 
         //If there were neither onHidden nor onVisible, take what's left
         if( $return['onHidden']=='' && $return['onVisible']=='' ){
@@ -114,15 +114,15 @@ class syntax_plugin_hidden extends DokuWiki_Syntax_Plugin {
           $return['onVisible'] = ($return['onVisible']!='') ? $return['onVisible'] : $this->getlang('onVisible');
         }
 
-        //If we don't have an export text, take the onVisible one, since the block will be exported unfolded
-        if ( $return['onExport'] == '' ){
-          $return['onExport'] = $return['onVisible'];
+        //If we don't have an exportPdf text, take the onVisible one, since the block will be exported unfolded
+        if ( $return['onExportPdf'] == '' ){
+          $return['onExportPdf'] = $return['onVisible'];
         }
 
         //for security
         $return['onHidden'] = htmlspecialchars($return['onHidden']);
         $return['onVisible'] = htmlspecialchars($return['onVisible']);
-        $return['onExport'] = htmlspecialchars($return['onExport']); //FIXME: is it always the kind of escpaing we want?
+        $return['onExportPdf'] = htmlspecialchars($return['onExportPdf']); //FIXME: is it always the kind of escpaing we want?
 
         return $return;
 
@@ -134,7 +134,7 @@ class syntax_plugin_hidden extends DokuWiki_Syntax_Plugin {
       }
   } // handle()
 
-  private function grepOption(&$options, $tag, &$match){
+  private function _grepOption(&$options, $tag, &$match){
     preg_match("/$tag *= *\"([^\"]*)\" ?/i", $match, $text);
     if ( count($text) != 0 ){
       $match = str_replace($text[0], '', $match);
@@ -143,6 +143,10 @@ class syntax_plugin_hidden extends DokuWiki_Syntax_Plugin {
   }
 
   function render($mode, &$renderer, $data) {
+    if ( $this->_exportingPDF() ){
+      $data['onVisible'] = $data['onExportPdf'];
+    }
+
     if($mode == 'xhtml'){
       switch ($data['state']) {
         case DOKU_LEXER_ENTER :
@@ -200,6 +204,11 @@ class syntax_plugin_hidden extends DokuWiki_Syntax_Plugin {
 
     return false;
   } // render()
+
+  private function _exportingPDF(){
+    global $ACT;
+    return ($ACT == 'export_pdf' || $ACT == 'export_pdfbook');
+  }
 
   var $editableBlocks = array();
 
