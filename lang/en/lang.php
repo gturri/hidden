@@ -11,3 +11,4 @@ $lang['direction']             = 'ltr';
 $lang['onHidden']              = 'Click to display ⇲';
 $lang['onVisible']             = 'Click to hide ⇱';
 $lang['edit']                  = 'Edit hidden section';
+$lang['button']                = 'Hidden section';
