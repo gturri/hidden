@@ -62,7 +62,7 @@ function plugin_hidden_atLeastOneHidden(){
  * Check if a given element is hidden
  */
 function plugin_hidden_isHidden(elem){
-    return jQuery(elem.parentNode).children('div.hiddenBody').style.display === "none";
+    return jQuery(elem.parentNode).children('div.hiddenBody')[0].style.display === "none";
 }
 
 /**
