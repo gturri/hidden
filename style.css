@@ -15,8 +15,13 @@
   padding:1px;
 }
 
+.hiddenBody p {
+  margin: 0;
+}
+
 .hiddenGlobal{
   border:1px solid __border__;
+  margin: 0 0 1.4em;
 }
 
 .hiddenActive{
