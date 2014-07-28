@@ -106,12 +106,12 @@ class syntax_plugin_hidden extends DokuWiki_Syntax_Plugin {
                $return['onHidden'] = $text;
                $return['onVisible'] = $text;
              } else { //if there's nothing left, take the default texts
-               $return['onHidden'] = $this->getlang('onHidden');
-               $return['onVisible'] = $this->getlang('onVisible');
+               $return['onHidden'] = $this->getConf('default_text_when_hidden');
+               $return['onVisible'] = $this->getConf('default_text_when_displayed');
              }
         } else { //if one string is specified but not the other, take the defaul text
-          $return['onHidden'] = ($return['onHidden']!='') ? $return['onHidden'] : $this->getlang('onHidden');
-          $return['onVisible'] = ($return['onVisible']!='') ? $return['onVisible'] : $this->getlang('onVisible');
+          $return['onHidden'] = ($return['onHidden']!='') ? $return['onHidden'] : $this->getConf('default_text_when_hidden');
+          $return['onVisible'] = ($return['onVisible']!='') ? $return['onVisible'] : $this->getConf('default_text_when_displayed');
         }
 
         //If we don't have an exportPdf text, take the onVisible one, since the block will be exported unfolded
