@@ -201,13 +201,20 @@ class syntax_plugin_hidden extends DokuWiki_Syntax_Plugin {
       }
       return true;
     }
+    
+    if ($mode == 'odt') {
+      if ($data['state'] == DOKU_LEXER_UNMATCHED) {
+        $renderer->doc .= $renderer->_xmlEntities($data['text']);
+      }
+      return true;
+    }
 
     return false;
   } // render()
 
   private function _exportingPDF(){
     global $ACT;
-    return ($ACT == 'export_pdf' || $ACT == 'export_pdfbook');
+    return ($ACT == 'export_pdf' || $ACT == 'export_pdfbook' || $ACT == 'export_odt');
   }
 
   var $editableBlocks = array();
