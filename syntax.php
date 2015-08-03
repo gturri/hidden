@@ -44,9 +44,19 @@ class syntax_plugin_hidden extends DokuWiki_Syntax_Plugin {
   function handle($match, $state, $pos, &$handler) {
     switch ($state) {
       case DOKU_LEXER_ENTER :
-          $return = array('active' => 'true', 'element'=>Array(), 'onHidden'=>'', 'onVisible'=>'',
-              'initialState'=>'hidden', 'state'=>$state, 'printHead' => true, 'bytepos_start' => $pos,
-              'edit' => false, 'editText' => $this->getLang('edit'), 'onExportPdf' => '');
+          $return = array(
+                'active' => 'true',
+                'element'=>Array(),
+                'onHidden'=>'',
+                'onVisible'=>'',
+                'initialState'=>'hidden',
+                'state'=>$state,
+                'printHead' => true,
+                'bytepos_start' => $pos,
+                'edit' => false,
+                'editText' => $this->getLang('edit'),
+                'onExportPdf' => ''
+              );
            $match = substr($match, 7, -1); //7 = strlen("<hidden")
 
         //Looking for the initial state
@@ -158,8 +168,7 @@ class syntax_plugin_hidden extends DokuWiki_Syntax_Plugin {
 
           // "\n" are inside tags to avoid whitespaces in the DOM with FF
           $renderer->doc .= '<div class="hiddenGlobal '.$classEdit.'">';
-          $renderer->doc .= '<div class="hiddenOnHidden">'.$onHidden."</div>"; //text displayed when hidden
-          $renderer->doc .= '<div class="hiddenOnVisible">'.$onVisible."</div>"; //text displayed when expanded
+
 
           $renderer->doc .= '<div class="hiddenElements">';
           foreach($data['element'] as $element){
@@ -172,8 +181,9 @@ class syntax_plugin_hidden extends DokuWiki_Syntax_Plugin {
           $renderer->doc .= $data['active'] ? ' hiddenActive' : '';
           $renderer->doc .= ($data['initialState'] == 'hidden') ? ' hiddenSinceBeginning' : '';
           $renderer->doc .= '">';
-          $renderer->doc .= $onVisible;
-          $renderer->doc .= "</div>";
+          $renderer->doc .=   '<div class="hiddenOnHidden">'.$onHidden."</div>"; //text displayed when hidden
+          $renderer->doc .=   '<div class="hiddenOnVisible">'.$onVisible."</div>"; //text displayed when expanded
+          $renderer->doc .= '</div> <!-- .hiddenHead -->';
 
           $renderer->doc .= '<div class="hiddenBody">';
           break;

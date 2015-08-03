@@ -6,40 +6,36 @@
  *
  */
 
-.hiddenHead{
-  background-color:__background_alt__;
+div.hiddenGlobal {
+	border: 1px gray dotted;
+	padding: 0.7em;
 }
 
-.hiddenBody{
-  border-top:1px solid __border__;
-  padding:1px;
+div.hiddenOnVisible,
+div.hiddenOnHidden {
+	display: inline;
+	color: blue;
 }
 
-.hiddenBody p {
-  margin: 0;
+div.hiddenHead:hover {
+	cursor: pointer;
+	text-decoration: underline;
+}
+div.hiddenGlobal:not(.hiddenHidden)>div.hiddenHead p:after {
+	content: url('images/glyphicons-368-expand.png');
 }
 
-.hiddenGlobal{
-  border:1px solid __border__;
-  margin: 0 0 1.4em;
+div.hiddenGlobal.hiddenHidden>div.hiddenHead p:after {
+	content: url('images/glyphicons-369-collapse.png');
+}
+div.hiddenGlobal.hiddenHidden>div.hiddenHead>div.hiddenOnVisible {
+	display: none;
 }
 
-.hiddenActive{
-  cursor:pointer;
+div.hiddenGlobal:not(.hiddenHidden)>div.hiddenHead>div.hiddenOnHidden {
+	display: none;
 }
 
-.hiddenOnHidden{
-  display:none;
-}
-
-.hiddenOnVisible{
-  display:none;
-}
-
-.hiddenElements{
-  display:none;
-}
-
-div.hiddenGlobal div.hiddenHead p{
-  margin:0;
+div.hiddenGlobal.hiddenHidden>div.hiddenBody {
+	display: none;
 }
