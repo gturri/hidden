@@ -30,15 +30,22 @@ div.hiddenHead:hover {
 
 
 
+div.hiddenHead p:after {
+  display: inline-block;
+  background-size: 1.2em 1.2em;
+  width: 1.2em;
+  height: 1.2em;
+  content:"";
+}
 div.hiddenGlobal:not(.hiddenHidden)>div.hiddenHead p:after {
-  content: url('images/glyphicons-368-expand.png');
+  background-image: url('images/shrink2.png');
 }
 div.hiddenGlobal:not(.hiddenHidden)>div.hiddenHead>div.hiddenOnHidden {
   display: none;
 }
 
 div.hiddenGlobal.hiddenHidden>div.hiddenHead p:after {
-  content: url('images/glyphicons-369-collapse.png');
+  background-image: url('images/enlarge2.png');
 }
 div.hiddenGlobal.hiddenHidden>div.hiddenHead>div.hiddenOnVisible {
   display: none;
