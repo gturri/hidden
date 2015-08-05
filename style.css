@@ -7,35 +7,51 @@
  */
 
 div.hiddenGlobal {
-	border: 1px gray dotted;
-	padding: 0.7em;
+  border: 1px solid __border__;
 }
 
 div.hiddenOnVisible,
 div.hiddenOnHidden {
-	display: inline;
-	color: blue;
+  display: inline;
+  color: __link__;
 }
 
-div.hiddenHead:hover {
-	cursor: pointer;
-	text-decoration: underline;
+div.hiddenGlobal div.hiddenHead p{
+  margin:0;
 }
+
+div.hiddenHead {
+  background-color: __background_alt__;
+}
+div.hiddenHead:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+
+
 div.hiddenGlobal:not(.hiddenHidden)>div.hiddenHead p:after {
-	content: url('images/glyphicons-368-expand.png');
+  content: url('images/glyphicons-368-expand.png');
+}
+div.hiddenGlobal:not(.hiddenHidden)>div.hiddenHead>div.hiddenOnHidden {
+  display: none;
 }
 
 div.hiddenGlobal.hiddenHidden>div.hiddenHead p:after {
-	content: url('images/glyphicons-369-collapse.png');
+  content: url('images/glyphicons-369-collapse.png');
 }
 div.hiddenGlobal.hiddenHidden>div.hiddenHead>div.hiddenOnVisible {
-	display: none;
+  display: none;
 }
 
-div.hiddenGlobal:not(.hiddenHidden)>div.hiddenHead>div.hiddenOnHidden {
-	display: none;
-}
 
+div.hiddenBody {
+  border-top:1px solid __border__;
+  padding:1px;
+}
+div.hiddenBody p {
+  margin: 0;
+}
 div.hiddenGlobal.hiddenHidden>div.hiddenBody {
-	display: none;
+  display: none;
 }
