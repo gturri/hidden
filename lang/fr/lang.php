@@ -11,3 +11,4 @@ $lang['onHidden']              = 'Cliquez pour afficher ⇲';
 $lang['onVisible']             = 'Cliquez pour masquer ⇱';
 $lang['edit']                  = 'Éditer la section masquée';
 $lang['button']                = 'Section masquée';
+$lang['switch.default']        = 'Cliquer pour afficher/masquer tous les éléments';

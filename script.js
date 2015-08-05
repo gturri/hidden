@@ -6,8 +6,16 @@
  *
  */
 jQuery(function(){
-	jQuery(".hiddenSinceBeginning").parent().addClass('hiddenHidden');
-	jQuery(".hiddenHead").on('click', function(){
+	jQuery("div.hiddenSinceBeginning").parent().addClass('hiddenHidden');
+	jQuery('div.hiddenActive>div.hiddenHead').on('click', function(){
 			jQuery(this).parent().toggleClass('hiddenHidden');
+		});
+	jQuery(".hiddenSwitch").on('click', function() {
+			var weShallHide = (jQuery('div.hiddenGlobal.hiddenHidden').length == 0);
+			if(weShallHide) {
+				jQuery('.hiddenActive').addClass('hiddenHidden');
+			} else {
+				jQuery('.hiddenActive').removeClass('hiddenHidden');
+			}
 		});
 });
