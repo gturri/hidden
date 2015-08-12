@@ -6,40 +6,59 @@
  *
  */
 
-.hiddenHead{
-  background-color:__background_alt__;
+div.hiddenGlobal {
+  border: 1px solid __border__;
 }
 
-.hiddenBody{
-  border-top:1px solid __border__;
-  padding:1px;
-}
-
-.hiddenBody p {
-  margin: 0;
-}
-
-.hiddenGlobal{
-  border:1px solid __border__;
-  margin: 0 0 1.4em;
-}
-
-.hiddenActive{
-  cursor:pointer;
-}
-
-.hiddenOnHidden{
-  display:none;
-}
-
-.hiddenOnVisible{
-  display:none;
-}
-
-.hiddenElements{
-  display:none;
+div.hiddenOnVisible,
+div.hiddenOnHidden {
+  display: inline;
+  color: __link__;
 }
 
 div.hiddenGlobal div.hiddenHead p{
   margin:0;
+}
+
+div.hiddenHead {
+  background-color: __background_alt__;
+}
+div.hiddenHead:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+
+
+div.hiddenHead p:after {
+  display: inline-block;
+  background-size: 1.2em 1.2em;
+  width: 1.2em;
+  height: 1.2em;
+  content:"";
+}
+div.hiddenGlobal:not(.hiddenHidden)>div.hiddenHead p:after {
+  background-image: url('images/shrink2.png');
+}
+div.hiddenGlobal:not(.hiddenHidden)>div.hiddenHead>div.hiddenOnHidden {
+  display: none;
+}
+
+div.hiddenGlobal.hiddenHidden>div.hiddenHead p:after {
+  background-image: url('images/enlarge2.png');
+}
+div.hiddenGlobal.hiddenHidden>div.hiddenHead>div.hiddenOnVisible {
+  display: none;
+}
+
+
+div.hiddenBody {
+  border-top:1px solid __border__;
+  padding:1px;
+}
+div.hiddenBody p {
+  margin: 0;
+}
+div.hiddenGlobal.hiddenHidden>div.hiddenBody {
+  display: none;
 }

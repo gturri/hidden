@@ -12,3 +12,4 @@ $lang['onHidden']              = 'Zum Anzeigen hier klicken ⇲';
 $lang['onVisible']             = 'Zum Verstecken hier klicken ⇱';
 $lang['edit']                  = 'Bearbeite versteckten Absatz';
 $lang['button']                = 'Versteckter Absatz';
+$lang['switch.default']        = 'Alle anzeigen / alle verstecken';
