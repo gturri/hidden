@@ -12,4 +12,4 @@ $lang['onHidden']              = '보려면 클릭 ⇲';
 $lang['onVisible']             = '숨기려면 클릭 ⇱';
 $lang['edit']                  = '숨겨진 문단 편집';
 $lang['button']                = '숨겨진 문단';
-$lang['switch.default']        = '전체 내용을 보기/숨기기 하려면 클릭';
+$lang['switch.default']        = '모든 요소를 보거나 숨기려면 클릭';
