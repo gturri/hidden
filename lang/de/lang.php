@@ -2,7 +2,7 @@
 
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
- * 
+ *
  * @author Tim Weinhold <tim.weinhold@gmail.com>
  * @author Matthias Schulte <dokuwiki@lupo49.de>
  */
