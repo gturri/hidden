@@ -163,7 +163,7 @@ class syntax_plugin_hidden extends DokuWiki_Syntax_Plugin {
       $data['onVisible'] = $data['onExportPdf'];
     }
 
-    if($mode == 'xhtml' && $data['type'] == 'switch') {
+    if($mode == 'xhtml' && array_key_exists('type', $data) && $data['type'] == 'switch') {
       $renderer->doc .= '<button class="button hiddenSwitch">'.$data['text'].'</button>';
       return true;
     }
