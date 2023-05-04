@@ -6,7 +6,6 @@
  */
 
 if(!defined('DOKU_INC')) die();
-require_once(DOKU_PLUGIN.'action.php');
 
 class action_plugin_hidden extends Dokuwiki_Action_Plugin {
   function register(Doku_Event_Handler $controller) {
