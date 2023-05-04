@@ -1,7 +1,7 @@
 base hidden
 author Guillaume Turri
 email guillaume.turri@gmail.com
-date 2023-01-25
+date 2023-05-04
 name hidden Plugin
 desc Enable to hide/show details
 url http://www.dokuwiki.org/plugin:hidden
